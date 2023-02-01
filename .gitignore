@@ -5,3 +5,7 @@
 *.ipynb
 .terraform*
 *.tfstate
+/week_2/2_prefect_gcp/data/
+/week_2/*/data/
+__pycache__
+.prefectignore
