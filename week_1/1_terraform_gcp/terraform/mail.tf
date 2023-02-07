@@ -40,6 +40,32 @@ resource "google_storage_bucket" "data-lake-bucket" {
   force_destroy = true
 }
 
+#Data Lake Bucket for HW week 3
+
+resource "google_storage_bucket" "hw3-data-lake-bucket" {
+  name          = "${local.home_work_data_lake_bucket}_${var.project}" # Concatenating DL bucket & Project name for unique naming
+  location      = var.region
+
+  # Optional, but recommended settings:
+  storage_class = var.storage_class
+  uniform_bucket_level_access = true
+
+  versioning {
+    enabled     = false
+  }
+
+  lifecycle_rule {
+    action {
+      type = "Delete"
+    }
+    condition {
+      age = 30  // days
+    }
+  }
+
+  force_destroy = true
+}
+
 # DWH
 # Ref: https://registry.terraform.io/providers/hashicorp/google/latest/docs/resources/bigquery_dataset
 resource "google_bigquery_dataset" "dataset" {

@@ -7,5 +7,6 @@
 *.tfstate
 /week_2/2_prefect_gcp/data/
 /week_2/*/data/
+/week_3/*/data/
 __pycache__
 .prefectignore

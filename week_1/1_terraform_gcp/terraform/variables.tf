@@ -2,6 +2,10 @@ locals {
   data_lake_bucket = "dtc_data_lake"
 }
 
+locals {
+  home_work_data_lake_bucket = "hw3_data_lake"
+}
+
 variable "project" {
   description = "Your GCP Project ID"
   default = "platinum-avenue-375715"
