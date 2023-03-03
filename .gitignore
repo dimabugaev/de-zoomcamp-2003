@@ -13,3 +13,4 @@ __pycache__
 .prefectignore
 */logs/
 .ipynb_checkpoints
+.parquet
