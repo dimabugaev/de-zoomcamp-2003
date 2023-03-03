@@ -1,0 +1,73 @@
+export SPARK_HOME=/usr/local/Cellar/apache-spark/3.3.2/libexec
+export PATH="$SPARK_HOME/bin/:$PATH"
+export PYTHONPATH="${SPARK_HOME}/python/"
+export PYTHONPATH="${SPARK_HOME}/python/lib/py4j-0.10.9.5-src.zip:$PYTHONPATH"
+
+gcloud dataproc jobs submit pyspark \
+    --cluster de-platinum-avenue-cluster \
+    --region europe-west6 \
+    --jars=gs://spark-lib/bigquery/spark-bigquery-latest_2.12.jar \
+            gs://dtc_data_lake_platinum-avenue-375715/code/sparkSQLBQ.py -- \
+                "--input_green=gs://dtc_data_lake_platinum-avenue-375715/pq/green/*/*/" \
+                "--input_yellow=gs://dtc_data_lake_platinum-avenue-375715/pq/yellow/*/*/" \
+                "--output=trips_data_all.report_spark"
+
+
+gcloud dataproc jobs submit pyspark \
+    --cluster de-platinum-avenue-cluster \
+    --region europe-west6 \
+            gs://dtc_data_lake_platinum-avenue-375715/code/sparkSQL.py -- \
+                "--input_green=gs://dtc_data_lake_platinum-avenue-375715/pq/green/*/*/" \
+                "--input_yellow=gs://dtc_data_lake_platinum-avenue-375715/pq/yellow/*/*/" \
+                "--output=gs://dtc_data_lake_platinum-avenue-375715/report-full/"
+
+
+
+{
+  "reference": {
+    "jobId": "job-eb9ec156",
+    "projectId": "platinum-avenue-375715"
+  },
+  "placement": {
+    "clusterName": "de-platinum-avenue-cluster"
+  },
+  "status": {
+    "state": "DONE",
+    "stateStartTime": "2023-03-03T15:45:32.209403Z"
+  },
+  "yarnApplications": [
+    {
+      "name": "test",
+      "state": "FINISHED",
+      "progress": 1,
+      "trackingUrl": "http://de-platinum-avenue-cluster-m:8088/proxy/application_1677856151475_0003/"
+    }
+  ],
+  "statusHistory": [
+    {
+      "state": "PENDING",
+      "stateStartTime": "2023-03-03T15:44:39.169404Z"
+    },
+    {
+      "state": "SETUP_DONE",
+      "stateStartTime": "2023-03-03T15:44:39.210485Z"
+    },
+    {
+      "state": "RUNNING",
+      "details": "Agent reported job success",
+      "stateStartTime": "2023-03-03T15:44:39.476917Z"
+    }
+  ],
+  "driverControlFilesUri": "gs://dataproc-staging-europe-west6-1021294541367-wwvaxdkk/google-cloud-dataproc-metainfo/93b02d73-e648-488d-9f8a-793c1538b6e3/jobs/job-eb9ec156/",
+  "driverOutputResourceUri": "gs://dataproc-staging-europe-west6-1021294541367-wwvaxdkk/google-cloud-dataproc-metainfo/93b02d73-e648-488d-9f8a-793c1538b6e3/jobs/job-eb9ec156/driveroutput",
+  "jobUuid": "563357fd-432e-44e0-95a0-eb63cfd5cc17",
+  "done": true,
+  "pysparkJob": {
+    "mainPythonFileUri": "gs://dtc_data_lake_platinum-avenue-375715/code/sparkSQL.py",
+    "args": [
+      "--input_green=gs://dtc_data_lake_platinum-avenue-375715/pq/green/*/*",
+      "--input_yellow=gs://dtc_data_lake_platinum-avenue-375715/pq/yellow/*/*",
+      "--output=gs://dtc_data_lake_platinum-avenue-375715/report-full"
+    ]
+  }
+}
