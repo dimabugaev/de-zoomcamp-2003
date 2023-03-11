@@ -1,0 +1,13 @@
+dataSources: []
+dbt:
+  projectDir: .
+  # tag: 'piperider'
+
+profiler:
+#   table:
+#     # the maximum row count to profile. (Default unlimited)
+#     limit: 1000000
+#     duplicateRows: false
+
+telemetry:
+  id: 8f0416d243bf4ea1a13d0ab5e1e30634
