@@ -14,3 +14,4 @@ __pycache__
 */logs/
 .ipynb_checkpoints
 .parquet
+*.code-workspace
